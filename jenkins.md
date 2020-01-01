@@ -36,3 +36,26 @@
 
 #### When you first access a new Jenkins instance, you are asked to unlock it using an automatically-generated password.
 `docker logs jenkins-blueocean`
+
+
+#### installation bash script:
+
+`#!/bin/bash`
+
+#### source : https://wiki.jenkins.io/display/JENKINS/Installing+Jenkins+with+Docker#space-menu-link-content
+
+#### Pull latest container
+`docker pull jenkins`
+
+#### Setup local configuration folder
+#### Should already be in a jenkins folder when running this script.
+`export CONFIG_FOLDER=$PWD/config
+mkdir $CONFIG_FOLDER
+chown 1000 $CONFIG_FOLDER`
+
+#### Start container
+`docker run --restart=always -d -p 49001:8080 \
+-v $CONFIG_FOLDER:/var/jenkins_home:z \
+--name jenkins -t jenkins`
+
+`docker logs --follow jenkins`
